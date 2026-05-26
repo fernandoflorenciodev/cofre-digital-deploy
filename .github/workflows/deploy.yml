@@ -1,0 +1,44 @@
+name: Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: echo "Docker build simulated"
+
+  staging:
+    if: github.ref == 'refs/heads/develop'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Staging
+        run: echo "Deploy para STAGING"
+
+  production:
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Production
+        run: echo "Deploy para PRODUÇÃO"
+
+  security-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Security Scan
+        run: echo "Verificando secrets..."
